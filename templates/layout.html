@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FundusAI: </title>
+    <style>
+        {% block style %}
+        {% endblock %}
+    </style>
+
+    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <header>
+        <!-- Placeholder for Company Logo (replace with your actual logo) -->
+        <img src="/static/samples/logo.png" alt="Company Logo" style="width: 160px; height: 50px;">
+
+        <!-- Navigation bar links (Overview, Health Chart, Calendar, Forum, Chat, Today's Challenge) -->
+        <nav>
+            <ul class="navbar-links">
+                <li><a href="/" {% if active_page == 'overview' %}class="active"{% endif %}>Overview</a></li>
+                <li><a href="#" {% if active_page == 'health_chart' %}class="active"{% endif %}>Health Chart</a></li>
+                <li><a href="#" {% if active_page == 'calendar' %}class="active"{% endif %}>Calendar</a></li>
+                <li><a href="#" {% if active_page == 'forum' %}class="active"{% endif %}>Forum</a></li>
+                <li><a href="#" {% if active_page == 'chat' %}class="active"{% endif %}>Chat</a></li>
+                <li><a href="{{ url_for('challenge') }}" {% if active_page == 'challenge' %}class="active"{% endif %}>Today's Challenge</a></li>
+            </ul>
+        </nav>
+
+        <!-- Placeholder for Profile Icon (replace with your actual icon) -->
+        <img src="/static/samples/patient_profile.png" alt="Profile Icon" style="width: 60px; height: 60px;">
+    </header>
+
+    {% block body %}
+    {% endblock %}
+</body>
+</html>

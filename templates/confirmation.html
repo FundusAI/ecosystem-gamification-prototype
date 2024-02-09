@@ -1,0 +1,30 @@
+{% extends "layout.html" %}
+
+{% block title %}Congratulations!{% endblock %}
+
+{% block style %}
+    .confirmation-message {
+        text-align: center;
+        max-width: 400px;
+        width: 100%;
+        padding: 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        background-color: #fff;
+        margin: auto;
+        margin-top: 100px;
+    }
+
+    .filled-fields {
+        color: #0447B8;
+        font-weight: bold;
+        font-size: 1.2em;
+    }
+{% endblock %}
+
+{% block body %}
+    <div class="confirmation-message" style="border-color: {{ secondary_color }};">
+        <p class="filled-fields">🎉 CONGRATULATIONS! You have received <span style="text-weight: 800; color: #FF9839";>{{ filled_fields }}</span> points today!</p>
+    </div>
+{% endblock %}

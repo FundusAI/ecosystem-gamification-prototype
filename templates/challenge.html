@@ -1,0 +1,63 @@
+{% extends "layout.html" %}
+
+{% block style %}
+    .form-card {
+        background-color: #fff;
+        border: 1px solid #ddd;
+        padding: 20px;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        max-width: 400px;
+        width: 100%;
+        margin-top: 30px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    input, button {
+        width: 100%;
+        margin-bottom: 10px;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+    }
+
+    button {
+        background-color: #0447B8;
+        color: #fff;
+        cursor: pointer;
+    }
+
+    #formLabel {
+        text-align: center;
+        font-size: 50px;
+        color: #FF9839;
+        margin-top: 50px;
+        margin-bottom: 0px;
+    }
+
+{% endblock %}
+
+{% block body %}
+    <p id="formLabel">Challenge Yourself 🏆</p>
+    <div class="form-card">
+        <!-- Form content as before -->
+        <form method="POST" enctype="multipart/form-data">
+            <label for="num_steps">Number of Steps:</label>
+            <input type="number" id="num_steps" name="num_steps">
+
+            <label for="glucode_level">Glucose Level:</label>
+            <input type="number" id="glucode_level" name="glucode_level">
+
+            <label for="blood_pressure">Blood Pressure:</label>
+            <input type="text" id="blood_pressure" name="blood_pressure">
+
+            <label for="picture_of_feet">Picture of Food:</label>
+            <input type="file" id="picture_of_feet" name="picture_of_feet" accept="image/*">
+
+            <br><br>
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+{% endblock %}
