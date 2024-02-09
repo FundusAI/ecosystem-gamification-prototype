@@ -8,6 +8,22 @@ body {
     height: 100vh;
 }
 
+.fundus-blue {
+    color: #0447B8;
+}
+
+.fundus-blue-bg {
+    background-color: #0447B8;
+}
+
+.fundus-orange {
+    color: #FF9839;
+}
+
+.fundus-orange-bg {
+    background-color: #FF9839;
+}
+
 header {
     background-color: #fff;
     border-bottom: 1px solid #ddd;
@@ -53,4 +69,23 @@ nav {
 
 .navbar-links li {
     padding: 5px;
+}
+
+#botButton {
+    font-size: 15px; 
+    font-weight: bolder;
+    display: block;
+    background-color: #0447B8;
+    color: #fff;
+    padding: 13px;
+    border-radius: 25px;
+    position: absolute;
+    right: 30px;
+    bottom: 30px;
+    width: 150px; 
+    height: 30px; 
+    text-align: center;
+    align-items: center;
+    display: flex;
+    text-decoration: none;
 }

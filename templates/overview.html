@@ -115,24 +115,6 @@
     #topDiv {
         display: flex;
     }
-
-    #botButton {
-        font-size: 15px; 
-        font-weight: bolder;
-        display: block;
-        background-color: #0447B8;
-        color: #fff;
-        padding: 13px;
-        border-radius: 25px;
-        position: absolute;
-        right: 30px;
-        bottom: 30px;
-        width: 150px; 
-        height: 30px; 
-        text-align: center;
-        align-items: center;
-        display: flex;
-    }
 {% endblock %}
 
 
@@ -192,44 +174,59 @@
         <a href="{{ url_for('challenge') }}" class="new-record-button">Set a New Record</a>
         </div>
         <canvas id="blood-sugar-progress" class="circular-progress" data-percent="50"></canvas>
-        <canvas id="steps-progress" class="circular-progress" data-percent="75"></canvas>
         <canvas id="food-progress" class="circular-progress" data-percent="40"></canvas>
+        <canvas id="steps-progress" class="circular-progress" data-percent="75"></canvas>
         <canvas id="bp-progress" class="circular-progress" data-percent="60"></canvas>
     </div>
 
-    <a id="botButton">
-        <img src="/static/samples/bot.png" alt="AI bot icon" style="width: 32px;">
-        <div style="margin: auto;">
-            AI Assistant
-        </div>
-    </a>
-
 
     <script>
+
+
         // Function to create circular progress bar using Chart.js
         function createCircularProgressBar(elementId, percent, label, colour) {
+
+            const data = {
+                labels: [label],
+                datasets: [{
+                    data: [percent, 100 - percent],
+                    backgroundColor: [colour, `${colour}20`],
+                    borderWidth: 1,
+                }]
+            };
+
+            const doughnutLabel = {
+                id: 'doughnutLabel',
+                beforeDatasetsDraw(chart, args, pluginOptions) {
+                    const { ctx, data  } = chart;
+
+                    ctx.save(); 
+                    const xCoor = chart.getDatasetMeta(0).data[0].x;
+                    const yCoor = chart.getDatasetMeta(0).data[0].y;
+                    ctx.font = 'bold 18px sans-serif';
+                    ctx.textAlign = 'center';
+                    ctx.textBaseline = 'middle';
+                    ctx.fillText(`${data.labels[0]}: ${data.datasets[0].data[0]}`, xCoor, yCoor);
+                }
+            };
+
             new Chart(elementId, {
                 type: 'doughnut',
-                data: {
-                    labels: [label],
-                    datasets: [{
-                        data: [percent, 100 - percent],
-                        backgroundColor: [colour, `${colour}20`],
-                        borderWidth: 0,
-                    }]
-                },
+                data,
                 options: {
+                    cutout: 75,
+                    borderRadius: 30,
                     responsive: false,
                     maintainAspectRatio: false,
-                    cutoutPercentage: 90,
-                }
+                },
+                plugins: [doughnutLabel],
             });
-        }
+        };
 
         // Call the function for each circular progress bar
         createCircularProgressBar('blood-sugar-progress', 50, 'Blood Sugar', '#FEC635');
-        createCircularProgressBar('steps-progress', 75, 'Steps Taken', '#0000FF');
-        createCircularProgressBar('food-progress', 40, 'Water Intake', '#FF9839');
+        createCircularProgressBar('food-progress', 75, 'Water Intake', '#0000FF');
+        createCircularProgressBar('steps-progress', 40, 'Steps Taken', '#FF9839');
         createCircularProgressBar('bp-progress', 60, 'Blood Pressure', '#e60017');
     </script>
 

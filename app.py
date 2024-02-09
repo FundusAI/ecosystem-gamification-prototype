@@ -38,6 +38,13 @@ def challenge():
 
     return render_template('challenge.html', primary_color=primary_color, secondary_color=secondary_color, active_page='challenge')
 
+
+@app.route('/chat', methods=['GET', 'POST'])
+def chat():
+    if request.method == 'GET':
+        return render_template("chat.html", active_page='chat')
+
+
 # Run the application
 if __name__ == '__main__':
     app.run(debug=True)
