@@ -22,6 +22,7 @@ h1 {
 
 .chat-input {
     display: flex;
+    left: 370px;
     padding: 10px;
     background-color: #fff;
     border-radius: 15px;
@@ -49,6 +50,7 @@ h1 {
     color: #999;
     font-size: 10px;
     position: absolute;
+    left: 390px;
     bottom: 10px;
     margin-bottom: 0;
     margin-left: 80px;
@@ -58,12 +60,30 @@ h1 {
     margin-left: 550px;
 }
 
+.prompt-card {
+    display: inline-block;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 5px 10px;
+    margin-right: 10px;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+
 {% endblock %}
 
 {% block body %}
     <div class="center">
         <img src="{{ url_for('static', filename='samples/bot-chat.png') }}" id="botImg">
         <h1 class="fundus-blue">Hi there, how can I assist you?</h1>
+
+         <!-- Suggested Prompts -->
+         <div class="prompt-container">
+            <div class="prompt-card">What does FundusAI stand for?</div>
+            <div class="prompt-card">What is diabetes?</div>
+            <div class="prompt-card">Does diabetes cause blindness?</div>
+            <!-- Add more prompt cards as needed -->
+        </div>
 
         <!--TODO: Make center positioning responsive, don't use margins-->
         <div id="fixCenter">

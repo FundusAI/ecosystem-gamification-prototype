@@ -110,6 +110,8 @@
         height: 20px;
         margin: 5px;
         border-radius: 5px;
+        position: relative;
+        top: 10px;
     }
 
     #topDiv {
@@ -206,7 +208,9 @@
                     ctx.font = 'bold 18px sans-serif';
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
-                    ctx.fillText(`${data.labels[0]}: ${data.datasets[0].data[0]}`, xCoor, yCoor);
+                     // Use the label as is, ensuring it already contains line breaks if necessary
+            ctx.fillText(data.labels[0], xCoor, yCoor - 10); // Adjust the position as needed
+            ctx.fillText(data.datasets[0].data[0], xCoor, yCoor + 10); // Adjust the position as needed
                 }
             };
 
@@ -223,11 +227,11 @@
             });
         };
 
-        // Call the function for each circular progress bar
-        createCircularProgressBar('blood-sugar-progress', 50, 'Blood Sugar', '#FEC635');
-        createCircularProgressBar('food-progress', 75, 'Water Intake', '#0000FF');
-        createCircularProgressBar('steps-progress', 40, 'Steps Taken', '#FF9839');
-        createCircularProgressBar('bp-progress', 60, 'Blood Pressure', '#e60017');
+       // Call the function for each circular progress bar
+createCircularProgressBar('blood-sugar-progress', 50, 'Blood Sugar\n', '#FEC635'); // Include line break here
+createCircularProgressBar('food-progress', 75, 'Water Intake\n', '#0000FF'); // Include line break here
+createCircularProgressBar('steps-progress', 40, 'Steps Taken\n', '#FF9839'); // Include line break here
+createCircularProgressBar('bp-progress', 60, 'Blood Pressure\n', '#e60017'); // Include line break here
     </script>
 
 {% endblock %}
