@@ -1,0 +1,193 @@
+<!-- vouchers.html -->
+
+{% extends 'layout.html' %}
+
+{% block title %}Your Vouchers{% endblock %}
+
+{% block style %}
+    h1 {
+        margin-left: 50px;
+        color: #0447B8;
+    }
+
+    .display-card {
+        background-color: #F3F3F3;
+        border-radius: 15px;
+        padding: 20px;
+    }
+
+    ,display-card a {
+        text-decoration: none;
+    }
+
+    .frame {
+        width: 290px;
+        height: 300px;
+        box-shadow: 0 0 10px #FF9839;
+        margin: 20px;
+        background-color: #FFFFFF;
+        border-radius: 10px;
+        padding: 15px;
+        align-items: center;
+        text-align: center;
+    }
+
+    .frame img {
+        width: 270px;
+        height: 240px;
+        margin: 0px;
+        text-align: center;
+        align-items: center;
+    }
+
+    .frame p {
+        margin: auto;
+    }
+
+    #main {
+        width: 1400px;
+        height: 250px;
+        top: 180px;
+        left: 130px;
+        position: absolute;
+        display: flex;
+        padding: 30px;
+    }
+
+    #main img {
+        width: 900px;
+        height: 250px;
+        margin-left: 80px;
+        border: 1px solid #000000;
+    }
+
+    #mainText {
+        width: 550px;
+        line-height: 1.5em;
+    }
+
+    #group {
+        width: 1010px;
+        height: 360px;
+        right: 300px;
+        bottom: 20px;
+        position: absolute;
+        padding: 20px;
+        display: flex;
+    }
+
+    .text-box{
+        border-radius: 10px;
+    }
+
+    .minor {
+        height: 45px;
+        text-align: center;
+        align-items: center;
+        background-color: rgb(255, 152, 57, 0.2);
+        display: flex;
+        width: 100px;
+        margin: auto;
+        margin-top: 10px;
+    }
+
+    .claim-button {
+        background-color: #FF9839;
+        border-radius: 20px;
+        width: 200px;
+        height: 40px;
+        margin: auto;
+        align-items: center;
+        display: flex;
+        margin-top: 13px;
+    }
+
+    .claim-button b {
+        color: #FFFFFF;
+        font-size: 18px;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    #redeem {
+        position: absolute;
+        top: 170px;
+        left: 20px;
+    }
+
+    .frame a {
+        text-decoration: none;
+    }
+{% endblock %}
+
+{% block body %}
+
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <b class="modal-message">🎉 AWESOME! You have claimed this NFT</b>
+            <p class="modal-message">Check your wallet to view your NFT</p>
+            <button class="close-button" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
+    <h1>Your NFTs</h1>
+    <div class="display-card" id="main">
+        <div class="text-box major" id="mainText">
+            <p>
+                Congratulations! 🎉 You have recieved the ultimate NFT reward. 🤩 This is your reward
+                for completing the one month data challenge, you are one of a select few to claim this prize.
+                This reward grants you a whopping 30% discount on your diabetes medication, which you can redeem on our marketplace. 🛒 
+            </p>
+        </div>
+        <img src="static/img/FundusAI-NFT-Voucher.png">
+        <a href="#">
+            <div class="claim-button" id="redeem">
+                <b>REDEEM</b>
+            </div>
+        </a>
+    </div>
+
+    <div class="display-card" id="group">
+        <div class="frame">
+            <img src="static/img/FundusAI_NFT_discount_Voucher.png">
+            <a href="/">
+                <div class="claim-button">
+                    <b>USE</b>
+                </div>
+            </a>
+        </div>
+        <div class="frame">
+            <img src="static/img/Used_FundusAI_NFT_discount_Voucher.png">
+            <div class="text-box minor">
+                <p>#19741</p>
+            </div>
+        </div>
+        <div class="frame">
+            <img src="static/img/Used_FundusAI_NFT_discount_Voucher.png">
+            <div class="text-box minor">
+                <p>#29347</p>
+            </div>
+        </div>
+    </div>
+
+    
+    <script>
+        const redeemButton = document.getElementById("redeem");
+
+        // Function to display the modal
+        function displayModal() {
+            document.getElementById('myModal').style.display = 'flex';
+        }
+
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        // Display the modal when the page is loaded
+        redeemButton.onclick = function() {
+            displayModal();
+        };
+    </script>
+{% endblock %}
+

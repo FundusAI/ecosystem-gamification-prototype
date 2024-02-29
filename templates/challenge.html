@@ -1,5 +1,7 @@
 {% extends "layout.html" %}
 
+{% block title %}Challenge{% endblock %}
+
 {% block style %}
     .form-card {
         background-color: #fff;
@@ -37,6 +39,42 @@
         margin-bottom: 0px;
     }
 
+    .blood-pressure-input {
+        display: flex;
+        align-items: center;
+    }
+
+    .bp-input {
+        margin-right: 10px;
+        width: 100px;
+        padding: 8px;
+        border: 1px solid #ddd;
+        border-radius: 5px;
+        box-sizing: border-box;
+        outline: none;
+    }
+
+    .blood-pressure-input p {
+        display: flex;
+        margin-bottom: 40px;
+    }
+
+    .bp-label {
+        margin-right: 10px;
+    }
+
+    input {
+        margin-bottom: 30px;
+        align-items: center;
+    }
+
+    body {
+        background-image: url('static/img/challenge-bg.png');
+        background-size: cover;
+        background-repeat: no-repeat;
+    }
+
+
 {% endblock %}
 
 {% block body %}
@@ -47,11 +85,24 @@
             <label for="num_steps">Number of Steps:</label>
             <input type="number" id="num_steps" name="num_steps">
 
-            <label for="glucode_level">Glucose Level:</label>
-            <input type="number" id="glucode_level" name="glucode_level">
+            <label for="glucose_level">Glucose Level:</label>
+            <input type="number" id="glucose_level" name="glucose_level" placeholder="(mmol/L)">
+
+            <label for="water_intake">Water Intake:</label>
+            <input type="number" id="water_intake" name="water_intake" placeholder="(Litres)">
 
             <label for="blood_pressure">Blood Pressure:</label>
-            <input type="text" id="blood_pressure" name="blood_pressure">
+            <div class="blood-pressure-input">
+                <input type="text" id="dia" class="bp-input" placeholder="DIA (mmHg)">
+
+                <p>/&nbsp;&nbsp;</p>
+
+                <input type="text" id="sys" class="bp-input" placeholder="SYS (mmHg)">
+                
+                <p>/&nbsp;&nbsp;</p>
+
+                <input type="text" id="pulse" class="bp-input" placeholder="Pulse (BPM)">
+            </div>
 
             <label for="picture_of_feet">Picture of Food:</label>
             <input type="file" id="picture_of_feet" name="picture_of_feet" accept="image/*">

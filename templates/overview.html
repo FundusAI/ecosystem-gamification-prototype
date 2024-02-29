@@ -2,6 +2,8 @@
 
 {% extends 'layout.html' %}
 
+{% block title %}Overview{% endblock %}
+
 {% block style %}
     .overview-card {
         color: #fff;
@@ -35,7 +37,7 @@
     }
 
     .progress-bar {
-        width: 25%;  /* Adjust the width as needed */
+        width: 100%;  /* Adjust the width as needed */
         background-color: #fff;
         z-index: 2;  /* Set z-index to 2 to position it on top of remaining-bar */
     }
@@ -61,6 +63,11 @@
         height: 250px;
         background-color: #fff;
         box-shadow: 0 0 5px 1px #0447B8;
+    }
+
+    #voucherLink {
+        color: #FFFFFF;
+        text-weight: bolder;
     }
 
     .circular-progress {
@@ -110,34 +117,61 @@
         height: 20px;
         margin: 5px;
         border-radius: 5px;
+        position: relative;
+        top: 10px;
+    }
+
+    #weeks {
+        margin-bottom: 0px;
     }
 
     #topDiv {
         display: flex;
     }
+
+
+
+
+    body {
+        background-color: #f4f4f4;
+    }
 {% endblock %}
 
+{% block head %}
+    <script src="{{ url_for('static', filename='celebration') }}.js"></script>
+    <link href="{{ url_for('static', filename='celebration.css') }}" rel="stylesheet">
+{% endblock %}
 
 {% block body %}
+
+    <div class="modal" id="myModal">
+        <div class="modal-content">
+            <p class="modal-message">🎉 CONGRATULATIONS! You have received <b style="color: #FF9839";>6</b> points today!</p>
+            <p class="modal-message">👍🏾✨ YOU'RE AWESOME! 👍🏾✨<br> You have received a <b style="color: #FF9839";>Free Gift Voucher</b> for reaching 100 POINTS <br><br> <a href="/vouchers">View Here</a></p>
+            <button class="close-button" onclick="closeModal()">Close</button>
+        </div>
+    </div>
+
     <div id="topDiv">
         <!-- Points Card -->
         <div class="overview-card points-card" style="background-color: #0447B8;">
             <p style="font-size: 18px; font-weight: lighter;">Hey Khalifa! Your Available points</p>
             <div id="pointsHeaders">
-                <h1>8919 Points&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏅🏆🏅</h1>
+                <h1>100 Points&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏅🏆🏅</h1>
             </div>
-            <p class="points-text">You have Ccompleted <span style="font-weight: bolder;"> 15</span> health tasks today&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bolder;"> 25%</span> </p>
+            <p class="points-text">You have Completed <span style="font-weight: bolder;"> 20</span> health tasks this month&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bolder;"> 100%</span> </p>
             <div class="progress-bar-container">
                 <div class="remaining-bar"></div>
                 <div class="progress-bar"></div>
             </div>
+            <!--<p>View gift vouchers <a id="voucherLink" href="/">here</a><p>-->
         </div>
 
 
         <!-- Commit Graph (updated to a 10x3 grid) -->
         <div class="overview-card trends">
             <h2 style="color: black; margin: 0;">Completed Tasks</h2>
-            <p>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mon Tue Wed Thu Fri Sat Sun</p>
+            <p id="weeks">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;Mon Tue Wed Thu Fri Sat Sun</p>
             
             <div style="display: flex; flex-wrap: wrap;">
                 <p>Wk 1&nbsp;</p>
@@ -181,7 +215,20 @@
 
 
     <script>
+        // Function to display the modal
+        function displayModal() {
+            document.getElementById('myModal').style.display = 'flex';
+        }
 
+        // Function to close the modal
+        function closeModal() {
+            document.getElementById('myModal').style.display = 'none';
+        }
+
+        // Display the modal when the page is loaded
+        window.onload = function() {
+            displayModal();
+        };
 
         // Function to create circular progress bar using Chart.js
         function createCircularProgressBar(elementId, percent, label, colour) {
@@ -203,10 +250,11 @@
                     ctx.save(); 
                     const xCoor = chart.getDatasetMeta(0).data[0].x;
                     const yCoor = chart.getDatasetMeta(0).data[0].y;
-                    ctx.font = 'bold 18px sans-serif';
+                    ctx.font = 'bold 19px sans-serif';
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
-                    ctx.fillText(`${data.labels[0]}: ${data.datasets[0].data[0]}`, xCoor, yCoor);
+                    ctx.fillText(data.labels[0], xCoor, yCoor - 10); // Adjust the position as needed
+                    ctx.fillText(data.datasets[0].data[0], xCoor, yCoor + 30); // Adjust the position as needed
                 }
             };
 
@@ -214,7 +262,7 @@
                 type: 'doughnut',
                 data,
                 options: {
-                    cutout: 75,
+                    cutout: 85,
                     borderRadius: 30,
                     responsive: false,
                     maintainAspectRatio: false,
@@ -223,10 +271,14 @@
             });
         };
 
+        Chart.defaults.plugins.legend = false;
+
         // Call the function for each circular progress bar
-        createCircularProgressBar('blood-sugar-progress', 50, 'Blood Sugar', '#FEC635');
+        //createCircularProgressBar('blood-sugar-progress', 50, 'Blood Sugar', '#FEC635');
+        createCircularProgressBar('blood-sugar-progress', 50, 'Blood Sugar', '#feb601');
         createCircularProgressBar('food-progress', 75, 'Water Intake', '#0000FF');
-        createCircularProgressBar('steps-progress', 40, 'Steps Taken', '#FF9839');
+        createCircularProgressBar('steps-progress', 40, 'Steps Taken', '#ff7e05');
+        //createCircularProgressBar('steps-progress', 40, 'Steps Taken', '#FF9839');
         createCircularProgressBar('bp-progress', 60, 'Blood Pressure', '#e60017');
     </script>
 

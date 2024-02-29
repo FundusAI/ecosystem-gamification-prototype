@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request
+from flask import Flask, render_template, request, redirect
 from random import randint
 
 app = Flask(__name__)
@@ -17,6 +17,16 @@ def random_commit_color():
 # Routes
 @app.route('/')
 def index():
+    # return render_template("overview.html", active_page="overview", random_commit_color=random_commit_color)
+    return redirect('challenge')
+
+
+@app.route('/vouchers')
+def vouchers():
+    return render_template("vouchers.html", active_page="vouchers")
+
+@app.route('/overview')
+def overview():
     return render_template("overview.html", active_page="overview", random_commit_color=random_commit_color)
 
 
@@ -25,16 +35,16 @@ def challenge():
     if request.method == 'POST':
         # Process form data
         num_steps = request.form.get('num_steps', type=int)
-        glucode_level = request.form.get('glucode_level', type=int)
+        glucose_level = request.form.get('glucose_level', type=int)
         blood_pressure = request.form.get('blood_pressure')
         picture_of_feet = request.files.get('picture_of_feet')
 
         # Display the congratulatory message
-        filled_fields = sum(field is not None for field in [num_steps, glucode_level])
+        filled_fields = sum(field is not None for field in [num_steps, glucose_level])
         filled_fields += 1 if picture_of_feet else 0
-        filled_fields += 1 if len(blood_pressure) > 0 else 0
+        # filled_fields += 1 if len(blood_pressure) > 0 else 0
 
-        return render_template('confirmation.html', filled_fields=filled_fields, active_page='challenge')
+        return redirect('/overview')
 
     return render_template('challenge.html', primary_color=primary_color, secondary_color=secondary_color, active_page='challenge')
 

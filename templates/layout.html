@@ -3,14 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>FundusAI: </title>
+    <title>FundusAI: {% block title %}{% endblock %}</title>
     <style>
         {% block style %}
         {% endblock %}
     </style>
 
     <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1"></script>
+
+    {% block head %}
+    {% endblock %}
 </head>
 <body>
     <header>
@@ -20,12 +23,13 @@
         <!-- Navigation bar links (Overview, Health Chart, Calendar, Forum, Chat, Today's Challenge) -->
         <nav>
             <ul class="navbar-links">
-                <li><a href="/" {% if active_page == 'overview' %}class="active"{% endif %}>Overview</a></li>
+                <li><a href="/overview" {% if active_page == 'overview' %}class="active"{% endif %}>Overview</a></li>
+                <li><a href="{{ url_for('challenge') }}" {% if active_page == 'challenge' %}class="active"{% endif %}>Today's Challenge</a></li>
+                <li><a href="{{ url_for('vouchers') }}" {% if active_page == 'vouchers' %}class="active"{% endif %}>Vouchers</a></li>
                 <li><a href="#" {% if active_page == 'health_chart' %}class="active"{% endif %}>Health Chart</a></li>
                 <li><a href="#" {% if active_page == 'calendar' %}class="active"{% endif %}>Calendar</a></li>
                 <li><a href="#" {% if active_page == 'forum' %}class="active"{% endif %}>Forum</a></li>
                 <li><a href="{{ url_for('chat') }}" {% if active_page == 'chat' %}class="active"{% endif %}>Chat</a></li>
-                <li><a href="{{ url_for('challenge') }}" {% if active_page == 'challenge' %}class="active"{% endif %}>Today's Challenge</a></li>
             </ul>
         </nav>
 
