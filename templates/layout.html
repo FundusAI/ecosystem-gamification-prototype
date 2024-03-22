@@ -9,7 +9,7 @@
         {% endblock %}
     </style>
 
-    <link href="{{ url_for('static', filename='styles.css') }}" rel="stylesheet">
+    <link href="{{ url_for('static', filename='css/styles.css') }}" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
@@ -21,7 +21,7 @@
         <nav>
             <ul class="navbar-links">
                 <li><a href="/" {% if active_page == 'overview' %}class="active"{% endif %}>Overview</a></li>
-                <li><a href="#" {% if active_page == 'health_chart' %}class="active"{% endif %}>Health Chart</a></li>
+                <li><a href="#" {% if active_page == 'data_analytics' %}class="active"{% endif %}>Data Analytics</a></li>
                 <li><a href="#" {% if active_page == 'calendar' %}class="active"{% endif %}>Calendar</a></li>
                 <li><a href="#" {% if active_page == 'forum' %}class="active"{% endif %}>Forum</a></li>
                 <li><a href="{{ url_for('chat') }}" {% if active_page == 'chat' %}class="active"{% endif %}>Chat</a></li>
@@ -37,12 +37,79 @@
     {% endblock %}
 
     {% if active_page != 'chat' %}
-        <a id="botButton" href="{{ url_for('chat') }}">
-            <img src="/static/samples/bot.png" alt="AI bot icon" style="width: 32px;">
-            <div style="margin: auto;">
+        <!-- <a id="botButton" href="{{ url_for('chat') }}"> -->
+            
+            <!-- <div style="margin: auto;">
                 AI Assistant
-            </div>
-        </a>
+            </div> -->
+            
+                <!-- <img src="/static/samples/bot.png" alt="AI bot icon" style="width: 32px;"> -->
+                <div class="chat-popup" id="chatPopup">
+                    <div class="chat-container">
+                        <div class="chat-header">
+                            <span class="chat-title">Chatbot</span>
+                            <button class="close-btn" onclick="closeChat()">X</button>
+                        </div>
+                        <div class="chat-messages" id="chatMessages">
+                            <div class="prompt-container">
+                                <div class="prompt-card">What does FundusAI stand for?</div>
+                                <div class="prompt-card">What is diabetes?</div>
+                                <div class="prompt-card">Does diabetes cause blindness?</div>
+                                <!-- Add more prompt cards as needed -->
+                            </div>
+                            <!-- Chat messages will be displayed here -->
+                        </div>
+                        <input type="text" id="userInput" placeholder="Type your message..." />
+                        <button onclick="sendMessage()">Send</button>
+                    </div>
+                </div>
+                <button class="open-chat-btn" onclick="openChat()"><img src="/static/samples/bot.png" alt="AI bot icon" style="width: 32px;"></button>
+        <!-- </a> -->
     {% endif %}
+
+    <script>
+//         function openForm() {
+//   document.getElementById("myForm").style.display = "block";
+// }
+
+// function closeForm() {
+//   document.getElementById("myForm").style.display = "none";
+// }
+
+function openChat() {
+    document.getElementById("chatPopup").style.display = "block";
+}
+
+function closeChat() {
+    document.getElementById("chatPopup").style.display = "none";
+}
+
+function sendMessage() {
+    let userInput = document.getElementById("userInput").value;
+    appendUserMessage(userInput);
+    // Add logic here to send the user input to your chatbot backend and get a response
+    // For now, let's simulate a bot response
+    setTimeout(() => {
+        appendBotMessage("Bot response");
+    }, 500);
+    document.getElementById("userInput").value = "";
+}
+
+function appendUserMessage(message) {
+    const chatMessages = document.getElementById("chatMessages");
+    const userMessage = document.createElement("div");
+    userMessage.classList.add("user-message");
+    userMessage.innerText = message;
+    chatMessages.appendChild(userMessage);
+}
+
+function appendBotMessage(message) {
+    const chatMessages = document.getElementById("chatMessages");
+    const botMessage = document.createElement("div");
+    botMessage.classList.add("bot-message");
+    botMessage.innerText = message;
+    chatMessages.appendChild(botMessage);
+}            
+</script>
 </body>
 </html>

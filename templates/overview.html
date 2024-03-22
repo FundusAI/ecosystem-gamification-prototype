@@ -117,6 +117,7 @@
     #topDiv {
         display: flex;
     }
+
 {% endblock %}
 
 
@@ -128,7 +129,7 @@
             <div id="pointsHeaders">
                 <h1>8919 Points&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;🏅🏆🏅</h1>
             </div>
-            <p class="points-text">You have Ccompleted <span style="font-weight: bolder;"> 15</span> health tasks today&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bolder;"> 25%</span> </p>
+            <p class="points-text">You have completed <span style="font-weight: bolder;"> 15</span> health tasks today&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span style="font-weight: bolder;"> 25%</span> </p>
             <div class="progress-bar-container">
                 <div class="remaining-bar"></div>
                 <div class="progress-bar"></div>
@@ -181,13 +182,13 @@
         <canvas id="bp-progress" class="circular-progress" data-percent="60"></canvas>
     </div>
 
-
     <script>
 
 
         // Function to create circular progress bar using Chart.js
-        function createCircularProgressBar(elementId, percent, label, colour) {
+        function createCircularProgressBar(elementId, percent, label, colour, textColor) {
 
+            // label += '\n\n'
             const data = {
                 labels: [label],
                 datasets: [{
@@ -209,30 +210,57 @@
                     ctx.textAlign = 'center';
                     ctx.textBaseline = 'middle';
                      // Use the label as is, ensuring it already contains line breaks if necessary
-            ctx.fillText(data.labels[0], xCoor, yCoor - 10); // Adjust the position as needed
-            ctx.fillText(data.datasets[0].data[0], xCoor, yCoor + 10); // Adjust the position as needed
+            ctx.fillText(data.labels[0], xCoor, yCoor - 15); // Adjust the position as needed
+            ctx.fillStyle = textColor;
+            ctx.fillText(data.datasets[0].data[0], xCoor, yCoor + 15); // Adjust the position as needed;
                 }
             };
 
-            new Chart(elementId, {
-                type: 'doughnut',
-                data,
-                options: {
-                    cutout: 75,
-                    borderRadius: 30,
-                    responsive: false,
-                    maintainAspectRatio: false,
+        //     new Chart(elementId, {
+        //         type: 'doughnut',
+        //         data,
+        //         options: {
+        //             cutout: 75,
+        //             borderRadius: 30,
+        //             responsive: false,
+        //             maintainAspectRatio: false,
+        //             legend: {
+        //                 display: false,
+        //             },
+        //         },
+        //         plugins: [doughnutLabel],
+        //     });
+        // };
+        new Chart(elementId, {
+            type: 'doughnut',
+            data,
+            options: {
+                cutout: 85,
+                borderRadius: 30,
+                responsive: false,
+                maintainAspectRatio: false,
+                legend: {
+                    display: false,  // This line removes the legend
                 },
-                plugins: [doughnutLabel],
-            });
-        };
+            },
+            plugins: [doughnutLabel],
+        });
+    }
+    Chart.defaults.plugins.legend = false;
 
        // Call the function for each circular progress bar
-createCircularProgressBar('blood-sugar-progress', 50, 'Blood Sugar\n', '#FEC635'); // Include line break here
-createCircularProgressBar('food-progress', 75, 'Water Intake\n', '#0000FF'); // Include line break here
-createCircularProgressBar('steps-progress', 40, 'Steps Taken\n', '#FF9839'); // Include line break here
-createCircularProgressBar('bp-progress', 60, 'Blood Pressure\n', '#e60017'); // Include line break here
-    </script>
+// createCircularProgressBar('blood-sugar-progress', 80, 'Blood Sugar\n', '#FEC635', 'rgb(203, 203, 2)'); // Include line break here
+// createCircularProgressBar('food-progress', 75, 'Water Intake\n', '#0000FF', 'darkblue'); // Include line break here
+// createCircularProgressBar('steps-progress', 40, 'Steps Taken\n', '#FF9839', 'rgb(190, 123, 0)'); // Include line break here
+// createCircularProgressBar('bp-progress', 60, 'Blood Pressure\n', '#e60017', 'darkred'); // Include line break here
+  createCircularProgressBar('blood-sugar-progress', 80, 'Blood Sugar', '#FEC635', 'rgb(203, 203, 2');
+  
+  createCircularProgressBar('food-progress', 75, 'Water Intake', '#0000FF', 'darkblue');
+  
+  createCircularProgressBar('steps-progress', 40, 'Steps Taken', '#FF9839', 'rgb(190, 123, 0)');
+  
+  createCircularProgressBar('bp-progress', 60, 'Blood Pressure', '#e60017', 'darkred');
+  </script>
 
 {% endblock %}
 
